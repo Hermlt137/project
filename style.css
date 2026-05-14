@@ -1,0 +1,318 @@
+/* 1. 核心变量与全局重置 (Phase 1)*/
+:root {
+    --primary-red: #e60023;
+    --hover-red: #ad081b;
+    --bg-gray: #f8f9fa;
+    --text-dark: #111;
+    --text-muted: #767676;
+    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    --nav-width: 280px; /* 侧边栏宽度 */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #fff;
+    color: var(--text-dark);
+    line-height: 1.5;
+}
+
+[v-cloak] { display: none; }
+
+/* 2. 响应式侧边导航栏 */
+
+.side-nav-wrapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: var(--nav-width);
+    z-index: 1050; /* 确保在内容之上 [cite: 188] */
+    padding: 20px 15px;
+    background: white !important;
+    border-right: 1px solid #efefef;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+}
+
+.nav-logo {
+    font-weight: 900 !important;
+    font-size: 36px !important;
+    color: var(--primary-red) !important;
+    margin-bottom: 20px;
+    display: block;
+}
+
+/* 导航按钮自定义样式*/
+.nav-custom-btn {
+    border: 2px solid #efefef !important;
+    border-radius: 12px !important;
+    padding: 10px !important;
+    font-weight: bold !important;
+    margin-bottom: 10px;
+    transition: 0.2s; /* 满足 Transition 要求  */
+}
+
+.nav-custom-btn.active-mode {
+    background: var(--text-dark) !important;
+    color: white !important;
+    border-color: var(--text-dark) !important;
+}
+
+/*  3. Bootstrap Accordion 美化 */
+.accordion-flush .accordion-item {
+    border: none;
+    background: transparent;
+}
+
+.accordion-button {
+    font-size: 14px !important;
+    color: var(--text-muted) !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.accordion-button:not(.collapsed) {
+    color: var(--primary-red) !important;
+    font-weight: bold;
+}
+
+.accordion-body {
+    font-size: 13px;
+    color: #666;
+    padding: 0 10px 15px 10px;
+}
+
+/* 4. 主内容布局与轮播图  */
+.main-content-shifted {
+    transition: margin-left 0.3s ease;
+}
+
+/* 桌面端偏移 */
+@media (min-width: 992px) {
+    .main-content-shifted {
+        margin-left: var(--nav-width);
+        padding: 40px;
+    }
+}
+
+/* 移动端适配*/
+@media (max-width: 991.98px) {
+    .side-nav-wrapper {
+        width: 100%;
+        height: auto;
+        bottom: auto;
+        position: sticky; 
+    }
+    .main-content-shifted {
+        margin-left: 0;
+        padding: 20px;
+    }
+}
+
+/* Hero 轮播图容器 */
+.hero-carousel-container {
+    position: relative;
+    width: 100%;
+    height: 450px;
+    border-radius: 24px;
+    overflow: hidden;
+    background: #eee;
+}
+
+.carousel-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-slide {
+    min-width: 100%;
+    position: relative;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel-caption {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    color: white;
+    background: rgba(0,0,0,0.3);
+    padding: 20px;
+    border-radius: 12px;
+    backdrop-filter: blur(5px);
+}
+
+.carousel-prev, .carousel-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+}
+.carousel-prev { left: 20px; }
+.carousel-next { right: 20px; }
+
+/* 5. 瀑布流网格与卡片*/
+.masonry-grid {
+    column-count: 5;
+    column-gap: 16px;
+    width: 100%;
+}
+
+@media (max-width: 1400px) { .masonry-grid { column-count: 4; } }
+@media (max-width: 1100px) { .masonry-grid { column-count: 3; } }
+@media (max-width: 768px) { .masonry-grid { column-count: 2; } }
+
+.pin-card {
+    break-inside: avoid;
+    margin-bottom: 20px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.pin-card:hover {
+    transform: translateY(-8px) scale(1.02); /* 结合 Transform 效果 */
+    box-shadow: var(--hover-shadow);
+}
+
+.img-container {
+    position: relative;
+}
+
+.img-container img {
+    width: 100%;
+    display: block;
+}
+
+.favorite-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.pin-card:hover .favorite-btn { opacity: 1; }
+.favorite-btn.active { opacity: 1; color: var(--primary-red); }
+
+/* 6. 详情页表格与表单验证 */
+
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.info-table th {
+    background: #f8f9fa;
+    padding: 12px;
+    text-align: left;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.info-table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+/* 表单验证反馈：错误时输入框变红 */
+.form-control-error {
+    border: 2px solid var(--primary-red) !important;
+    background-color: #fff2f0 !important;
+}
+
+/* 交互反馈：点击输入框改变样式 */
+.custom-input:focus {
+    border-color: var(--primary-red);
+    box-shadow: 0 0 0 0.2rem rgba(230, 0, 35, 0.25);
+}
+
+.error-message {
+    color: var(--primary-red);
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* 详情抽屉 */
+.detail-drawer {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.drawer-content {
+    background: white;
+    width: 90%;
+    max-width: 1100px;
+    height: 85vh;
+    border-radius: 24px;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+}
+
+.drawer-media { flex: 1.2; background: #000; display: flex; align-items: center; justify-content: center; }
+.drawer-media img, .drawer-media video { max-width: 100%; max-height: 100%; }
+.drawer-info { flex: 0.8; padding: 40px; display: flex; flex-direction: column; }
+
+.save-btn {
+    background: var(--primary-red);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 30px;
+    font-weight: bold;
+}
+.save-btn.is-saved { background: var(--text-dark); }
+
+.auth-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 9999; /* 必须高于侧边栏的 1050 */
+    display: flex; /* 没有这个，内容就不会显示在屏幕中心 */
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-card {
+    background: white;
+    padding: 40px;
+    border-radius: 32px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+.switcher { cursor: pointer; font-weight: bold; }
