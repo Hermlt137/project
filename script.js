@@ -12,7 +12,7 @@ createApp({
             selectedItem: null,
             showDetail: false,
 
-            // Phase 2: Carousel 轮播图数据 !!The image is searched by AI!!
+            // !!The image is searched by AI!!
             currentSlide: 0,
             carouselTimer: null,
             carouselSlides: [
@@ -27,7 +27,6 @@ createApp({
             authForm: { username: '', password: '' },
             authErrors: { username: false, password: false },
 
-            // 为侧边栏 Accordion 准备的数据
             guideItems: [
                 { title: "How to Favorite?", content: "Click the heart icon on any image card or the 'Save' button in detail view." },
                 { title: "Supported Formats", content: "We support high-resolution JPG/PNG images and MP4 video previews." },
@@ -38,7 +37,7 @@ createApp({
             ]
         }
     },
-    // 计算属性，课件 Vue Part 1 涵盖 data/methods !!AI-generated code!!
+    // !!AI-generated code!!
     computed: {
         filteredLibrary() {
             if (this.showOnlyFavorites) {
@@ -48,7 +47,7 @@ createApp({
         }
     },
     methods: {
-        // Carousel Logic 轮播图核心逻辑
+        // Carousel Logic
         startCarousel() {
             if (this.carouselTimer) clearInterval(this.carouselTimer);
             this.carouselTimer = setInterval(() => { this.nextSlide(); }, 3000);
@@ -60,7 +59,7 @@ createApp({
         // Form Validation
         clearError(field) { this.authErrors[field] = false; },
 
-        // 表单验证，课件教授了 if/else 逻辑判断
+        // if/else
         validateForm() {
             let isValid = true;
             if (!this.authForm.username.trim()) { this.authErrors.username = true; isValid = false; }
@@ -68,7 +67,7 @@ createApp({
             return isValid;
         },
 
-        //异步网络请求 (Fetch/Async/Await) !!AI-generated code!!
+        //(Fetch/Async/Await) !!AI-generated code!!
         async handleAuth() {
             if (!this.validateForm()) {
                 alert("Please fill in all required fields.");
