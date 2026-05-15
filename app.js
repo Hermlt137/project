@@ -4,23 +4,19 @@ const cors = require('cors');
 
 const app = express();
 
-// 放在路由定义之前
 app.use(cors());
 app.use(express.json()); 
 
-// 数据库连接
 mongoose.connect('mongodb://127.0.0.1:27017/groupP_db')
     .then(() => console.log("✅ MongoDB Connected"))
     .catch(err => console.error("❌ MongoDB Connection Error:", err));
 
-// 用户模型
 const User = mongoose.model('User', {
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     favorites: { type: [String], default: [] } 
 });
 
-// 注册
 app.post('/api/register', async (req, res) => {
     try {
         const newUser = new User(req.body);
@@ -29,7 +25,6 @@ app.post('/api/register', async (req, res) => {
     } catch (err) { res.status(400).json({ message: "User already exists" }); }
 });
 
-// 登录
 app.post('/api/login', async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -42,7 +37,6 @@ app.post('/api/login', async (req, res) => {
     } catch (err) { res.status(500).json({ message: "Server error" }); }
 });
 
-// 切换收藏 (关键接口)
 app.post('/api/favorites/toggle', async (req, res) => {
     try {
         const { username, itemId } = req.body;
@@ -54,20 +48,19 @@ app.post('/api/favorites/toggle', async (req, res) => {
 
         const index = user.favorites.indexOf(itemId);
         if (index > -1) {
-            user.favorites.splice(index, 1); // 移除
+            user.favorites.splice(index, 1);
         } else {
-            user.favorites.push(itemId); // 添加
+            user.favorites.push(itemId);
         }
         
         await user.save();
-        res.json({ favorites: user.favorites }); // 成功返回 JSON
+        res.json({ favorites: user.favorites });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "Server error" });
     }
 });
 
-// 获取收藏列表
 app.get('/api/favorites/:username', async (req, res) => {
     try {
         const user = await User.findOne({ username: req.params.username });
