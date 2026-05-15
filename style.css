@@ -7,7 +7,7 @@
     --text-muted: #767676;
     --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     --hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    --nav-width: 280px; /* 侧边栏宽度 */
+    --nav-width: 280px;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -28,7 +28,7 @@ body {
     top: 0;
     bottom: 0;
     width: var(--nav-width);
-    z-index: 1050; /* 确保在内容之上 [cite: 188] */
+    z-index: 1050;
     padding: 20px 15px;
     background: white !important;
     border-right: 1px solid #efefef;
@@ -180,7 +180,7 @@ body {
 }
 
 .pin-card:hover {
-    transform: translateY(-8px) scale(1.02); /* 结合 Transform 效果 */
+    transform: translateY(-8px) scale(1.02);
     box-shadow: var(--hover-shadow);
 }
 
