@@ -1,4 +1,4 @@
-/* 1. 核心变量与全局重置 (Phase 1)*/
+
 :root {
     --primary-red: #e60023;
     --hover-red: #ad081b;
@@ -21,7 +21,6 @@ body {
 
 [v-cloak] { display: none; }
 
-/* 2. 响应式侧边导航栏 */
 
 .side-nav-wrapper {
     position: fixed;
@@ -45,14 +44,13 @@ body {
     display: block;
 }
 
-/* 导航按钮自定义样式*/
 .nav-custom-btn {
     border: 2px solid #efefef !important;
     border-radius: 12px !important;
     padding: 10px !important;
     font-weight: bold !important;
     margin-bottom: 10px;
-    transition: 0.2s; /* 满足 Transition 要求  */
+    transition: 0.2s;
 }
 
 .nav-custom-btn.active-mode {
@@ -61,7 +59,6 @@ body {
     border-color: var(--text-dark) !important;
 }
 
-/*  3. Bootstrap Accordion 美化 */
 .accordion-flush .accordion-item {
     border: none;
     background: transparent;
@@ -85,12 +82,10 @@ body {
     padding: 0 10px 15px 10px;
 }
 
-/* 4. 主内容布局与轮播图  */
 .main-content-shifted {
     transition: margin-left 0.3s ease;
 }
 
-/* 桌面端偏移 */
 @media (min-width: 992px) {
     .main-content-shifted {
         margin-left: var(--nav-width);
@@ -98,7 +93,6 @@ body {
     }
 }
 
-/* 移动端适配*/
 @media (max-width: 991.98px) {
     .side-nav-wrapper {
         width: 100%;
@@ -112,7 +106,6 @@ body {
     }
 }
 
-/* Hero 轮播图容器 */
 .hero-carousel-container {
     position: relative;
     width: 100%;
@@ -166,7 +159,6 @@ body {
 .carousel-prev { left: 20px; }
 .carousel-next { right: 20px; }
 
-/* 5. 瀑布流网格与卡片*/
 .masonry-grid {
     column-count: 5;
     column-gap: 16px;
@@ -217,7 +209,6 @@ body {
 .pin-card:hover .favorite-btn { opacity: 1; }
 .favorite-btn.active { opacity: 1; color: var(--primary-red); }
 
-/* 6. 详情页表格与表单验证 */
 
 .info-table {
     width: 100%;
@@ -237,13 +228,11 @@ body {
     border-bottom: 1px solid #eee;
 }
 
-/* 表单验证反馈：错误时输入框变红 */
 .form-control-error {
     border: 2px solid var(--primary-red) !important;
     background-color: #fff2f0 !important;
 }
 
-/* 交互反馈：点击输入框改变样式 */
 .custom-input:focus {
     border-color: var(--primary-red);
     box-shadow: 0 0 0 0.2rem rgba(230, 0, 35, 0.25);
@@ -255,7 +244,6 @@ body {
     margin-top: 5px;
 }
 
-/* 详情抽屉 */
 .detail-drawer {
     position: fixed;
     inset: 0;
@@ -299,8 +287,8 @@ body {
     height: 100vh;
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(8px);
-    z-index: 9999; /* 必须高于侧边栏的 1050 */
-    display: flex; /* 没有这个，内容就不会显示在屏幕中心 */
+    z-index: 9999; 
+    display: flex;
     align-items: center;
     justify-content: center;
 }
